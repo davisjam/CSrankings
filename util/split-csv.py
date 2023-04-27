@@ -10,7 +10,13 @@ import re
 import sys
 import operator
 import string
+import os
 
+if "PURDUE_ECE_ALONE" in os.environ:
+    csrankingsPrefix = "csrankings-ece-"
+else:
+    csrankingsPrefix = "csrankings-"
+print("csrankingsPrefix: " + csrankingsPrefix)
 
 def csv2dict_str_str(fname):
     """Takes a CSV file and returns a dictionary of pairs."""
@@ -34,7 +40,7 @@ with open("csrankings.csv", mode="w") as outfile:
     writer.writeheader()
     for i in list(string.ascii_lowercase):
         print("processing " + i)
-        fname = "csrankings-" + i + ".csv"
+        fname = csrankingsPrefix + i + ".csv"
         with open(fname, mode="r") as infile:
             reader = csv.DictReader(infile)
             for row in reader:

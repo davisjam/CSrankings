@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+import os
+
+
+if "PURDUE_ECE" in os.environ:
+    csrankingsPrefix = "csrankings-ece-"
+else:
+    csrankingsPrefix = "csrankings-"
+
 from collections import *
 import gzip
 import xmltodict
@@ -34,7 +42,7 @@ with open("csrankings.csv", mode="r") as infile:
     index = 0
     # Create all the files with headers
     for ch in list(string.ascii_lowercase):
-        fname = "csrankings-" + ch + ".csv"
+        fname = csrankingsPrefix + ch + ".csv"
         with open(fname, mode="w") as outfile:
             writer = csv.DictWriter(outfile, fieldnames)
             writer.writeheader()
